@@ -1,0 +1,19 @@
+.label {
+    color: #63dbfd;
+    font-size: 20px;
+}
+
+.GroupLabelInput {
+    display: flex;
+    gap: 7px ;
+}
+.GroupLabelInput:first-child {
+    margin-bottom: 20px;
+}
+.Input{
+    border-radius: 5px;
+    /*outline: none;*/
+}
+/*.Input:focus{*/
+/*    border: 2px solid #46dbfd;*/
+/*}*/
