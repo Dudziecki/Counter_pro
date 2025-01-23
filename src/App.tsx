@@ -20,9 +20,9 @@ function App() {
     return newStartValue ? JSON.parse(newStartValue) : 0;
   });
 
-  const [isSet, setIsSet] = useState(true);
+  const [isSetDisabled, setIsSetDisabled] = useState(true);
   const [isError, setIsError] = useState(false);
-  // const [isButtonsDisabled, setIsButtonsDisabled] = useState(false);
+  const [isButtonsDisabled, setIsButtonsDisabled] = useState(false);
   const [isEditMode, setIsEditMode] = useState(true)
 
   useEffect(() => {
@@ -33,22 +33,24 @@ function App() {
         storedStartValue !== null && storedMaxValue !== null &&
         (startValue !== JSON.parse(storedStartValue) || maxValue !== JSON.parse(storedMaxValue))
     ) {
-      setIsSet(false);
+
     }
   }, [startValue, maxValue]);
 
   useEffect(() => {
     if (startValue < 0 || maxValue < 0 || startValue >= maxValue) {
       setIsError(true);
-      // setIsButtonsDisabled(true);
+      setIsSetDisabled(false);
+      setIsButtonsDisabled(true);
     } else {
       setIsError(false);
-      // setIsButtonsDisabled(false);
+      setIsSetDisabled(true);
+      setIsButtonsDisabled(false);
     }
   }, [startValue, maxValue]);
 
-  // let isResetDisabled = value === startValue || isButtonsDisabled || !isSet;
-  // let isIncDisabled = value === maxValue || isButtonsDisabled || !isSet;
+  let isResetDisabled = value === startValue || isButtonsDisabled || !isSetDisabled;
+  let isIncDisabled = value === maxValue || isButtonsDisabled || !isSetDisabled;
 
   const onIncBtnClickHandler = () => {
     if (value < maxValue) {
@@ -72,7 +74,8 @@ function App() {
     localStorage.setItem('Max Value', JSON.stringify(maxValue));
     localStorage.setItem('Start Value', JSON.stringify(startValue));
     setValue(startValue);
-    setIsSet(true);
+    setIsSetDisabled(true);
+    // setStartValue(newStartValue) newStartValue, newMaxValue
   };
 
   return (
@@ -83,9 +86,9 @@ function App() {
             maxValue={maxValue}
             incrementFunc={onIncBtnClickHandler}
             resetFunc={onResBtnClickHandler}
-            // isResetDisabled={isResetDisabled}
-            // isIncDisabled={isIncDisabled}
-            isSet={isSet}
+            isResetDisabled={isResetDisabled}
+            isIncDisabled={isIncDisabled}
+            isSet={isSetDisabled}
             startValue={startValue}
             isError={isError}
             setStartValue={setStartValue}
