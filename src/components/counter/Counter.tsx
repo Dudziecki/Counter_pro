@@ -1,8 +1,8 @@
 import React from 'react';
-import {Display} from "../display/Display.tsx";
 import {Button} from "../button/Button.tsx";
-import {InputComponent} from "../inputComponent/InputComponent.tsx";
 import style from "./counter.module.css";
+import {EditMode} from "../editMode/EditMode.tsx";
+
 
 
 type CounterPropsType = {
@@ -18,7 +18,7 @@ type CounterPropsType = {
     setStartValue: (startValue: number) => void;
     setMaxValue: (maxValue: number) => void;
     onClickValue: () => void;
-    isEditMode:boolean
+    isEditMode: boolean
 }
 export const Counter: React.FC<CounterPropsType> = ({
                                                         value,
@@ -36,41 +36,25 @@ export const Counter: React.FC<CounterPropsType> = ({
                                                         isEditMode
                                                     }) => {
 
-    const resultValue = value === maxValue
-    const setEditMode = () => {
 
-       return (
-           isEditMode ? (<Display value={value}
-                              isMaxValue={resultValue}
-                              isSet={isSet}
-                              startValue={startValue}
-                              isError={isError}
-                />)
-                : (<div className='InputContainer'>
-                    <InputComponent
-                        label='max value'
-                        value={maxValue}
-                        onChange={setMaxValue}
-                        className='InputStyled'
-                        isError={isError}
-                    />
-                    <InputComponent
-                        label='start value'
-                        value={startValue}
-                        onChange={setStartValue}
-                        className='InputStyled'
-                        isError={isError}
-                    />
-                </div>))
 
-    }
     return (
         <div className={style.Counter}>
-            {setEditMode()}
-            <div className='wrapper'>
-                {isEditMode && <Button onClick={incrementFunc}>INC</Button>}
-                {isEditMode && <Button onClick={resetFunc}>RES</Button>}
-                <Button onClick={onClickValue} >Set</Button>
+            <EditMode isEditMode={isEditMode}
+                     value={value}
+                     startValue={startValue}
+                     isError={isError}
+                     setStartValue={setStartValue}
+                     setMaxValue={setMaxValue}
+                     maxValue={maxValue}
+
+            />
+            <div className={`${style.wrapper} ${
+                !isEditMode ? style.centered : ""
+            }`}>
+                {isEditMode && <Button onClick={incrementFunc} disabled={isIncDisabled}>INC</Button>}
+                {isEditMode && <Button onClick={resetFunc} disabled={isResetDisabled}>RES</Button>}
+                <Button onClick={onClickValue} disabled={!isSet}>Set</Button>
             </div>
         </div>
     );

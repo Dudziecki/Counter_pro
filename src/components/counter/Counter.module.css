@@ -1,3 +1,24 @@
 .Counter {
     border: 2px solid #63dbfd;
+    border-radius: 10px;
+    padding: 10px;
+}
+.wrapper{
+    border: 2px solid #63dbfd;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    gap:10px
+}
+.wrapper.centered {
+    justify-content: center;
+}
+.Container{
+    border: 2px solid #63dbfd;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+.Container:first-child{
+    margin-bottom: 10px;
 }
