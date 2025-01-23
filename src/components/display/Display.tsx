@@ -1,22 +1,23 @@
-import React from "react";
+import React from "react"
+import style from "./Display.module.css"
 
 type TextAreaPropsType = {
     value?: number;
     isMaxValue?: boolean;
-    isSet: boolean;
+
     startValue: number;
-    isError: boolean;
+
 };
 
-export const Display: React.FC<TextAreaPropsType> = ({ value, isMaxValue, isSet, isError }) => {
+export const Display: React.FC<TextAreaPropsType> = ({ value, isMaxValue, }) => {
     return (
         <h1
-            className='styledOutput'
+            className={style.Display}
             style={{
-                color: isMaxValue ? 'red' : 'black',
+                color: isMaxValue ? 'red' : ' #63dbfd',
             }}
         >
-            {isError ? <span style={{color:'red'}}>Incorrect input</span> : isSet ? value : <span style={{fontSize:'25px'}}>enter the values and click set</span>}
+            {value}
 
         </h1>
     );

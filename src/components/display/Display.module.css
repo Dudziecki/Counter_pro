@@ -1,0 +1,10 @@
+.Display {
+    border: 2px solid #63dbfd;
+    text-align: center;
+
+    border-radius: 10px;
+    margin: 0 0 12px 0;
+    font-size: 3em;
+    padding: 10px 0;
+
+}
