@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Display} from "../display/Display.tsx";
 import style from "../counter/Counter.module.css";
 import {InputComponent} from "../inputComponent/InputComponent.tsx";
@@ -11,6 +11,8 @@ type EditModePropsType = {
     setStartValue: (startValue: number) => void
     setMaxValue: (maxValue: number) => void
     maxValue: number
+    mxValue: number
+    stValue: number
 
 
 
@@ -23,9 +25,13 @@ export const EditMode: React.FC<EditModePropsType> = ({
                                                           setStartValue,
                                                           setMaxValue,
                                                           maxValue,
+                                                          mxValue,
+                                                          stValue
 
 
                                                       }) => {
+    // const [stValue,setStartValue] = useState(startValue);
+    // const [mxValue,setmxValue] = useState(maxValue);
     const resultValue = value === maxValue
     return (
         isEditMode ? (<Display value={value}
@@ -36,14 +42,14 @@ export const EditMode: React.FC<EditModePropsType> = ({
             : (<div className={style.Container}>
                     <InputComponent
                         label='max value'
-                        value={maxValue}
+                        value={mxValue}
                         onChange={setMaxValue}
 
                         isError={isError}
                     />
                     <InputComponent
                         label='start value'
-                        value={startValue}
+                        value={stValue}
                         onChange={setStartValue}
 
                         isError={isError}
