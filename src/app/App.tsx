@@ -1,6 +1,6 @@
 import  { useEffect, useState } from 'react';
 import style from './App.module.css';
-import {Counter} from "./components/counter/Counter.tsx";
+import {Counter} from "../components/counter/Counter.tsx";
 
 
 
