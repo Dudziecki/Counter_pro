@@ -18,6 +18,7 @@ export const InputComponent: React.FC<InputComponentProps> = ({
                                                                   isError
                                                               }) => {
 
+
     return (
         <div className={style.GroupLabelInput}>
             <label className={style.label}>{label}</label>
