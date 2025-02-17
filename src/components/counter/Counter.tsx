@@ -36,7 +36,6 @@ export const Counter: React.FC<CounterPropsType> = ({
     const [newStartValue, setNewStartValue] = useState(startValue);
     const [newMaxValue, setNewMaxValue] = useState(maxValue);
     const setFunc = () => {
-        // setIsEditMode(!isEditMode)
         dispatch(toggleEditModeAC())
         dispatch(setValuesAC({startValue: newStartValue, maxValue: newMaxValue}))
     }
@@ -59,14 +58,11 @@ export const Counter: React.FC<CounterPropsType> = ({
             <EditMode isEditMode={isEditMode}
                       value={value}
                       startValue={startValue}
-                // isError={isError}
                       setStartValue={setNewStartValue}
                       setMaxValue={setNewMaxValue}
                       maxValue={maxValue}
                       stValue={newStartValue}
                       mxValue={newMaxValue}
-
-
             />
             <div className={`${style.wrapper} ${
                 !isEditMode ? style.centered : ""
