@@ -1,23 +1,21 @@
 import React from 'react'
 import style from './InputComponent.module.css'
+import {useAppSelector} from "../../useAppSelector.ts";
+import {selectError} from "../../ui-selectors.ts";
 
 
 type InputComponentProps = {
-    label: string;
-    value: number;
-    onChange: (value: number) => void;
-
-    isError: boolean;
-};
+    label: string
+    value: number
+    onChange: (value: number) => void
+}
 
 export const InputComponent: React.FC<InputComponentProps> = ({
                                                                   label,
                                                                   value,
                                                                   onChange,
-
-                                                                  isError
                                                               }) => {
-
+    const isError = useAppSelector(selectError)
 
     return (
         <div className={style.GroupLabelInput}>
