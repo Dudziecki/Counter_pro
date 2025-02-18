@@ -2,31 +2,21 @@ import React, {useEffect, useState} from 'react';
 import {Button} from "../button/Button.tsx";
 import style from "./Counter.module.css";
 import {EditMode} from "../editMode/EditMode.tsx";
-import {setValuesAC} from "../../../model/counter-reducer.ts";
+import {changeIncrementValueAC, resetIncrementValueAC, setValuesAC} from "../../../model/counter-reducer.ts";
 import {useAppDispatch} from "../../../../../common/hooks/useAppDispatch.ts";
 import {setButtonsDisabledAC, setErrorAC, setSetBtnDisabledAC, toggleEditModeAC} from "../../../model/ui-reducer.ts";
 import {useAppSelector} from "../../../../../common/hooks/useAppSelector.ts";
 import {selectButtonsDisabled, selectEditMode, selectSetBtn} from "../../../model/ui-selectors.ts";
+import {selectIncrementValue, selectMaxValue, selectStartValue} from "../../../model/counter-selectors.ts";
 
 
-type CounterPropsType = {
-    value: number
-    maxValue: number
-    incrementFunc: () => void
-    resetFunc: () => void
 
+export const Counter: React.FC = () => {
 
-    startValue: number
-  }
-export const Counter: React.FC<CounterPropsType> = ({
-                                                        value,
-                                                        maxValue,
-                                                        incrementFunc,
-                                                        resetFunc,
+    const value = useAppSelector(selectIncrementValue)
+    const maxValue = useAppSelector(selectMaxValue)
+    const startValue = useAppSelector(selectStartValue)
 
-                                                        startValue,
-
-                                                    }) => {
     const isEditMode = useAppSelector(selectEditMode)
     const isButtonsDisabled = useAppSelector(selectButtonsDisabled)
     const isSetDisabled = useAppSelector(selectSetBtn)
@@ -43,6 +33,14 @@ export const Counter: React.FC<CounterPropsType> = ({
         dispatch(setValuesAC({startValue: newStartValue, maxValue: newMaxValue}))
     }
 
+    const onIncBtnClickHandler = () => {
+        if (value < maxValue) {
+            dispatch(changeIncrementValueAC())
+        }
+    }
+
+    const onResBtnClickHandler = () => dispatch(resetIncrementValueAC())
+
     useEffect(() => {
         if (newStartValue < 0 || newMaxValue < 0 || newStartValue >= newMaxValue) {
             dispatch(setErrorAC({isError: true}))
@@ -55,6 +53,10 @@ export const Counter: React.FC<CounterPropsType> = ({
             dispatch(setButtonsDisabledAC({isButtonsDisabled:false}))
         }
     }, [newStartValue, newMaxValue])
+
+    useEffect(() => {
+        localStorage.setItem('Increment Value', JSON.stringify(value));
+    }, [value])
 
     return (
         <div className={style.Counter}>
@@ -70,8 +72,8 @@ export const Counter: React.FC<CounterPropsType> = ({
             <div className={`${style.wrapper} ${
                 !isEditMode ? style.centered : ""
             }`}>
-                {isEditMode && <Button onClick={incrementFunc} disabled={isIncDisabled}>INC</Button>}
-                {isEditMode && <Button onClick={resetFunc} disabled={isResetDisabled}>RES</Button>}
+                {isEditMode && <Button onClick={onIncBtnClickHandler} disabled={isIncDisabled}>INC</Button>}
+                {isEditMode && <Button onClick={onResBtnClickHandler} disabled={isResetDisabled}>RES</Button>}
                 <Button onClick={setFunc} disabled={!isSetDisabled}>Set</Button>
             </div>
         </div>
