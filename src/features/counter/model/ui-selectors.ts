@@ -1,4 +1,4 @@
-import {RootState} from "./app/store.ts";
+import {RootState} from "../../../app/store.ts";
 
 export const selectEditMode=(state:RootState):boolean=>state.ui.isEditMode
 export const selectError=(state:RootState):boolean=>state.ui.isError

@@ -1,6 +1,6 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
-import {counterReducer} from "../counter-reducer.ts";
-import {uiReducer} from "../ui-reducer.ts";
+import {counterReducer} from "../features/counter/model/counter-reducer.ts";
+import {uiReducer} from "../features/counter/model/ui-reducer.ts";
 
 
 // объединение reducer'ов с помощью combineReducers
