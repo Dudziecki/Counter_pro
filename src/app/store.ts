@@ -1,19 +1,24 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit'
-import {counterReducer} from "../features/counter/model/counter-reducer.ts";
-import {uiReducer} from "../features/counter/model/ui-reducer.ts";
+import {configureStore} from '@reduxjs/toolkit'
+import {counterReducer, counterSlice} from "../features/counter/model/counterSlice.ts";
+import {uiReducer, uiSlice} from "../features/counter/model/uiSlice.ts";
+import {loadState} from "../common/utils/loadFromLocalStorage.ts";
+import {saveState} from "../common/utils/saveInLocalstorage.ts";
 
 
 // объединение reducer'ов с помощью combineReducers
-const rootReducer = combineReducers({
-    counter: counterReducer,
-    ui:uiReducer
 
-})
-
+const preloadedState = loadState()|| undefined;
 // создание store
 export const store = configureStore({
-    reducer: rootReducer,
+    reducer: {
+        [counterSlice.name]:counterReducer,
+        [uiSlice.name]:uiReducer,
+    },
+    preloadedState,
 })
+store.subscribe(() => {
+    saveState(store.getState());
+});
 
 // автоматическое определение типа всего объекта состояния
 export type RootState = ReturnType<typeof store.getState>
