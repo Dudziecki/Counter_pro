@@ -1,6 +1,6 @@
-export const loadState = () => {
+export const _loadState = (key:string) => {
     try {
-        const serializedState = localStorage.getItem("reduxState");
+        const serializedState = localStorage.getItem(key);
         if (serializedState === null) return undefined; // Если нет данных, возвращаем undefined (стор возьмёт initialState)
         return JSON.parse(serializedState);
     } catch (err) {

@@ -1,6 +1,6 @@
 import {RootState} from "../../app/store.ts";
 
-export const saveState = (state: RootState) => {
+export const _saveState = (state: RootState) => {
     try {
         const serializedState = JSON.stringify(state);
         localStorage.setItem("reduxState", serializedState);
