@@ -1,7 +1,8 @@
 import React from 'react'
 import style from './InputComponent.module.css'
 import {useAppSelector} from "../../../../../common/hooks/useAppSelector.ts";
-import {selectError} from "../../../model/ui-selectors.ts";
+import {selectError} from "../../../model/uiSlice.ts";
+
 
 
 type InputComponentProps = {
